@@ -563,6 +563,30 @@
             display: block;
         }
 
+        /* Product Selector */
+        .product-selector-btn {
+            background: rgba(201, 169, 98, 0.2);
+            color: var(--white);
+            border: 2px solid var(--gold);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-selector-btn:hover {
+            background: var(--gold);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .product-selector-btn.active {
+            background: var(--gold);
+            color: var(--primary-dark);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -667,28 +691,63 @@
         <!-- Featured Product -->
         <section class="featured-product">
             <div class="container">
-                <h2 class="section-title">Featured Product</h2>
-                <div class="product-showcase">
-                    <div class="product-image">
-                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash">
-                        <div class="discount-badge">58% OFF</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>SADOER Avocado Mousse Face Wash</h3>
-                        <div class="price">
-                            <span class="sale-price">₹249</span>
-                            <span class="original-price">₹599</span>
+                <h2 class="section-title">Featured Products</h2>
+                <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
+                    <button onclick="showFeaturedProduct('avocado')" id="feat-btn-avocado" class="product-selector-btn active">SADOER Avocado Mousse</button>
+                    <button onclick="showFeaturedProduct('rose')" id="feat-btn-rose" class="product-selector-btn">SADOER ROSE Mousse</button>
+                </div>
+                
+                <!-- Avocado Featured Product -->
+                <div id="featured-avocado" class="featured-content">
+                    <div class="product-showcase">
+                        <div class="product-image">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash">
+                            <div class="discount-badge">58% OFF</div>
                         </div>
-                        <p class="product-description">
-                            Experience the gentle power of our premium mousse face wash. Formulated with natural ingredients to cleanse, nourish, and reveal your skin's natural glow.
-                        </p>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> Deep cleansing formula</li>
-                            <li><i class="fas fa-check"></i> Natural ingredients</li>
-                            <li><i class="fas fa-check"></i> Suitable for all skin types</li>
-                            <li><i class="fas fa-check"></i> Dermatologically tested</li>
-                        </ul>
-                        <a href="#" onclick="showPage('product')" class="cta-button">View Details</a>
+                        <div class="product-info">
+                            <h3>SADOER Avocado Mousse Face Wash</h3>
+                            <div class="price">
+                                <span class="sale-price">₹249</span>
+                                <span class="original-price">₹599</span>
+                            </div>
+                            <p class="product-description">
+                                Experience the gentle power of our premium mousse face wash. Formulated with natural ingredients to cleanse, nourish, and reveal your skin's natural glow.
+                            </p>
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> Deep cleansing formula</li>
+                                <li><i class="fas fa-check"></i> Natural ingredients</li>
+                                <li><i class="fas fa-check"></i> Suitable for all skin types</li>
+                                <li><i class="fas fa-check"></i> Dermatologically tested</li>
+                            </ul>
+                            <a href="#" onclick="showPage('product'); showProductDetail('avocado')" class="cta-button">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rose Featured Product -->
+                <div id="featured-rose" class="featured-content" style="display: none;">
+                    <div class="product-showcase">
+                        <div class="product-image">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="SADOER ROSE Mousse Face Wash">
+                            <div class="discount-badge">58% OFF</div>
+                        </div>
+                        <div class="product-info">
+                            <h3>SADOER ROSE Mousse Face Wash</h3>
+                            <div class="price">
+                                <span class="sale-price">₹249</span>
+                                <span class="original-price">₹599</span>
+                            </div>
+                            <p class="product-description">
+                                Upgrade your daily skincare routine with SADOER Rose Elite Mousse Face Wash, a luxurious amino-acid based cleanser that gently removes dirt, oil, and impurities while keeping your skin soft, fresh, and hydrated.
+                            </p>
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> Rose extract enriched</li>
+                                <li><i class="fas fa-check"></i> Oil control formula</li>
+                                <li><i class="fas fa-check"></i> Suitable for all skin types</li>
+                                <li><i class="fas fa-check"></i> Dermatologically tested</li>
+                            </ul>
+                            <a href="#" onclick="showPage('product'); showProductDetail('rose')" class="cta-button">View Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -735,7 +794,42 @@
     <div id="product" class="page">
         <section class="product-detail">
             <div class="container">
-                <div class="product-gallery">
+                <!-- Products Grid View -->
+                <div id="products-grid" style="margin-bottom: 4rem;">
+                    <h2 class="section-title">Our Products</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                        <!-- Avocado Product Card -->
+                        <div onclick="showProductDetail('avocado')" style="cursor: pointer; background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; padding: 1.5rem;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                            <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER Avocado Mousse</h3>
+                            <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span style="color: var(--gold); font-size: 1.5rem; font-weight: 600;">₹249</span>
+                                <span style="color: #999; text-decoration: line-through;">₹599</span>
+                                <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
+                            </div>
+                        </div>
+
+                        <!-- Rose Product Card -->
+                        <div onclick="showProductDetail('rose')" style="cursor: pointer; background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; padding: 1.5rem;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="SADOER ROSE Mousse Face Wash" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                            <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER ROSE Mousse</h3>
+                            <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span style="color: var(--gold); font-size: 1.5rem; font-weight: 600;">₹249</span>
+                                <span style="color: #999; text-decoration: line-through;">₹599</span>
+                                <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Detail View -->
+                <div id="product-detail-view" style="display: none;">
+                    <!-- Avocado Detail -->
+                    <div id="avocado-detail">
+                        <a href="#" onclick="hideProductDetail()" style="color: var(--gold); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                        <div class="product-gallery">
                     <div>
                         <div class="gallery-main">
                              <img id="mainImage" src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash">
@@ -900,6 +994,179 @@
                         </div>
                     </div>
                 </div>
+                    </div>
+
+                    <!-- Rose Detail -->
+                    <div id="rose-detail" style="display: none;">
+                        <a href="#" onclick="hideProductDetail()" style="color: var(--gold); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                        <div class="product-gallery">
+                            <div>
+                            <div class="gallery-main">
+                                 <img id="roseMainImage" src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="SADOER ROSE Mousse Face Wash">
+                            </div>
+                            <div class="gallery-thumbs">
+                                <div class="thumb active" onclick="changeRoseImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg')">
+                                    <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="Image 1">
+                                </div>
+                                <div class="thumb" onclick="changeRoseImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img2.jpeg')">
+                                    <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img2.jpeg" alt="Image 2">
+                                </div>
+                                <div class="thumb" onclick="changeRoseImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img3.jpeg')">
+                                    <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img3.jpeg" alt="Image 3">
+                                </div>
+                                <div class="thumb" onclick="changeRoseImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img4.jpg')">
+                                    <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img4.jpg" alt="Image 4">
+                                </div>
+                                <div class="thumb" onclick="changeRoseImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img5.jpeg')">
+                                    <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img5.jpeg" alt="Image 5">
+                                </div>
+                                <div class="thumb" onclick="changeRoseImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img6.jpg')">
+                                    <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img6.jpg" alt="Image 6">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <h1>SADOER ROSE Mousse Face Wash</h1>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(4.9/5 - 156 reviews)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">₹249</span>
+                                <span class="old-price">₹599</span>
+                                <span class="discount-percent">58% OFF</span>
+                            </div>
+                            <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
+                                Upgrade your daily skincare routine with SADOER Rose Elite Mousse Face Wash, a luxurious amino-acid based cleanser that gently removes dirt, oil, and impurities while keeping your skin soft, fresh, and hydrated.
+                            </p>
+                            <a href="https://wa.me/c/917093560884" target="_blank" class="order-button">
+                                <i class="fab fa-whatsapp"></i>
+                                Order Now via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Rose Product Information Tabs -->
+                    <div class="product-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" onclick="showRoseTab('rose-benefits')">Benefits</button>
+                            <button class="tab-button" onclick="showRoseTab('rose-why-love')">Why You'll Love It</button>
+                            <button class="tab-button" onclick="showRoseTab('rose-ingredients')">Ingredients</button>
+                            <button class="tab-button" onclick="showRoseTab('rose-usage')">How to Use</button>
+                        </div>
+                        
+                        <div id="rose-benefits" class="tab-content active">
+                            <h3 style="color: var(--gold); margin-bottom: 1rem;">✨ Key Benefits</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    Deep Cleans Pores – Removes dirt, grease & pollution
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    Oil Control Formula – Keeps skin fresh & non-greasy
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    Mild & Non-Irritating – Gentle enough for daily use
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    Rose Extract Enriched – Soothes & repairs skin
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    Dense Mousse Foam – Soft, creamy & easy to rinse
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    Built-in Brush Head – Better cleansing & massage
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    For All Skin Types – Suitable for men & women
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div id="rose-why-love" class="tab-content">
+                            <h3 style="color: var(--gold); margin-bottom: 1rem;">🌸 Why You'll Love It</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                    Leaves skin clean, soft & moisturized
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                    Helps reduce dullness caused by oil and impurities
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                    Refreshing rose fragrance for a spa-like experience
+                                </li>
+                                <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                    Travel-friendly and easy-to-use pump bottle
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div id="rose-ingredients" class="tab-content">
+                            <h3 style="color: var(--gold); margin-bottom: 1rem;">Premium Rose Ingredients</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--gold);">Rose Extract</strong>
+                                    <p style="margin-top: 0.5rem; opacity: 0.9;">Premium rose extract soothes irritation and provides natural antioxidants</p>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--gold);">Amino Acid Complex</strong>
+                                    <p style="margin-top: 0.5rem; opacity: 0.9;">Essential amino acids strengthen skin barrier and improve elasticity</p>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--gold);">Rose Water</strong>
+                                    <p style="margin-top: 0.5rem; opacity: 0.9;">Natural rose water balances skin pH and provides hydration</p>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--gold);">Rose Hip Oil</strong>
+                                    <p style="margin-top: 0.5rem; opacity: 0.9;">Rich in vitamins A and E for skin repair and rejuvenation</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="rose-usage" class="tab-content">
+                            <h3 style="color: var(--gold); margin-bottom: 1rem;">🧴 How to Use</h3>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                    <p>Press the pump to release foam</p>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                    <p>Apply gently on wet face</p>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                    <p>Massage in circular motion using the brush</p>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                    <p>Rinse thoroughly with water</p>
+                                </div>
+                                <div style="margin-top: 1rem; padding: 1rem; background: rgba(201, 169, 98, 0.1); border-left: 3px solid var(--gold); border-radius: 5px;">
+                                    <strong style="color: var(--gold);">Pro Tip:</strong> Use morning & night for best results
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -947,24 +1214,103 @@
             window.scrollTo(0, 0);
         }
 
+        // Show featured product
+        function showFeaturedProduct(product) {
+            const featAvocado = document.getElementById('featured-avocado');
+            const featRose = document.getElementById('featured-rose');
+            const btnAvocado = document.getElementById('feat-btn-avocado');
+            const btnRose = document.getElementById('feat-btn-rose');
+            
+            if (product === 'avocado') {
+                featAvocado.style.display = 'block';
+                featRose.style.display = 'none';
+                btnAvocado.classList.add('active');
+                btnRose.classList.remove('active');
+            } else {
+                featAvocado.style.display = 'none';
+                featRose.style.display = 'block';
+                btnAvocado.classList.remove('active');
+                btnRose.classList.add('active');
+            }
+        }
+
+        // Show product detail view
+        function showProductDetail(product) {
+            const gridView = document.getElementById('products-grid');
+            const detailView = document.getElementById('product-detail-view');
+            const avocadoDetail = document.getElementById('avocado-detail');
+            const roseDetail = document.getElementById('rose-detail');
+            
+            gridView.style.display = 'none';
+            detailView.style.display = 'block';
+            
+            if (product === 'avocado') {
+                avocadoDetail.style.display = 'block';
+                roseDetail.style.display = 'none';
+            } else {
+                avocadoDetail.style.display = 'none';
+                roseDetail.style.display = 'block';
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Hide product detail and go back to grid
+        function hideProductDetail() {
+            const gridView = document.getElementById('products-grid');
+            const detailView = document.getElementById('product-detail-view');
+            
+            gridView.style.display = 'block';
+            detailView.style.display = 'none';
+            
+            window.scrollTo(0, 0);
+        }
+
         // Product image gallery
         function changeImage(src) {
             document.getElementById('mainImage').src = src;
             
             // Update active thumbnail
-            const thumbs = document.querySelectorAll('.thumb');
+            const thumbs = document.querySelectorAll('#avocado-detail .thumb');
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+            event.target.closest('.thumb').classList.add('active');
+        }
+
+        // Rose product image gallery
+        function changeRoseImage(src) {
+            document.getElementById('roseMainImage').src = src;
+            
+            // Update active thumbnail
+            const thumbs = document.querySelectorAll('#rose-detail .thumb');
             thumbs.forEach(thumb => thumb.classList.remove('active'));
             event.target.closest('.thumb').classList.add('active');
         }
 
         // Product tabs
         function showTab(tabId) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
+            // Hide all tab contents in avocado detail
+            const contents = document.querySelectorAll('#avocado-detail .tab-content');
             contents.forEach(content => content.classList.remove('active'));
             
             // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.tab-button');
+            const buttons = document.querySelectorAll('#avocado-detail .tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Rose product tabs
+        function showRoseTab(tabId) {
+            // Hide all rose tab contents
+            const contents = document.querySelectorAll('#rose-detail .tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all rose buttons
+            const buttons = document.querySelectorAll('#rose-detail .tab-button');
             buttons.forEach(button => button.classList.remove('active'));
             
             // Show selected tab content
