@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueGloww - A Skincare Legacy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a2e;
+            --secondary-dark: #16213e;
+            --gold: #C9A962;
+            --gold-light: #D4B876;
+            --rose: #E8B4CB;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: 
+                linear-gradient(rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="marble" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%23000"/><path d="M10 20c20-10 40 5 60-5s40-15 30 5-20 15-40 10-30-5-50-5z" fill="%23111" opacity="0.3"/><path d="M70 60c-15 8-25-3-40 7s-20 18-35 3 10-20 25-15 35 2 50 5z" fill="%23222" opacity="0.2"/></pattern></defs><rect width="100%" height="100%" fill="url(%23marble)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--rose);
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--primary-dark);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.4);
+        }
+
+        /* Featured Product */
+        .featured-product {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--gold);
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .product-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .price {
+            margin: 1.5rem 0;
+        }
+
+        .sale-price {
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-features li i {
+            color: var(--gold);
+        }
+
+        /* Trust Badges */
+        .trust-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .trust-badge {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .trust-badge:hover {
+            transform: translateY(-5px);
+        }
+
+        .trust-badge i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .trust-badge h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        /* Instagram Section */
+        .instagram-section {
+            padding: 6rem 0;
+            text-align: center;
+            background: rgba(232, 180, 203, 0.1);
+        }
+
+        .instagram-link {
+            background: linear-gradient(135deg, #E1306C 0%, #C13584 50%, #833AB4 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .instagram-link:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Product Detail Page */
+        .product-detail {
+            padding: 8rem 0 4rem;
+        }
+
+        .product-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .gallery-main {
+            position: relative;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumb:hover, .thumb.active {
+            opacity: 1;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: var(--gold);
+        }
+
+        .product-price {
+            margin: 2rem 0;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .old-price {
+            font-size: 1.5rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 1rem;
+        }
+
+        .discount-percent {
+            background: #ff4757;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .order-button {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .order-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .product-tabs {
+            margin-top: 4rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            color: var(--white);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-button.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .product-showcase {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-gallery {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .trust-badges {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Page visibility */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="https://i.postimg.cc/pV9BTXzt/Whats-App-Image-2025-12-27-at-10-14-56-PM.jpg" alt="TrueGloww Logo">
+                </div>
+                <span class="logo-text">TrueGloww</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('product')">Products</a></li>
+                <li><a href="https://wa.me/7093560884" target="_blank">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Homepage -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>TrueGloww</h1>
+                <p class="tagline">A Skincare Legacy</p>
+                <p class="subtitle">Discover the perfect balance of luxury and nature with our premium skincare collection</p>
+                <a href="#" onclick="showPage('product')" class="cta-button">Explore Products</a>
+            </div>
+        </section>
+
+        <!-- Featured Product -->
+        <section class="featured-product">
+            <div class="container">
+                <h2 class="section-title">Featured Product</h2>
+                <div class="product-showcase">
+                    <div class="product-image">
+                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash">
+                        <div class="discount-badge">58% OFF</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>SADOER Avocado Mousse Face Wash</h3>
+                        <div class="price">
+                            <span class="sale-price">₹249</span>
+                            <span class="original-price">₹599</span>
+                        </div>
+                        <p class="product-description">
+                            Experience the gentle power of our premium mousse face wash. Formulated with natural ingredients to cleanse, nourish, and reveal your skin's natural glow.
+                        </p>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> Deep cleansing formula</li>
+                            <li><i class="fas fa-check"></i> Natural ingredients</li>
+                            <li><i class="fas fa-check"></i> Suitable for all skin types</li>
+                            <li><i class="fas fa-check"></i> Dermatologically tested</li>
+                        </ul>
+                        <a href="#" onclick="showPage('product')" class="cta-button">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Badges -->
+        <section class="trust-section">
+            <div class="container">
+                <h2 class="section-title">Why Choose TrueGloww</h2>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <i class="fas fa-leaf"></i>
+                        <h4>Natural Ingredients</h4>
+                        <p>Carefully selected natural and organic ingredients for healthy, radiant skin</p>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-award"></i>
+                        <h4>Quality Tested</h4>
+                        <p>All products are dermatologically tested and approved by skincare experts</p>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h4>Fast Delivery</h4>
+                        <p>Quick and secure delivery to your doorstep with careful packaging</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Section -->
+        <section class="instagram-section">
+            <div class="container">
+                <h2 class="section-title">Follow Our Journey</h2>
+                <p style="margin-bottom: 2rem; font-size: 1.1rem;">Join our community and stay updated with the latest skincare tips and products</p>
+                <a href="https://www.instagram.com/truegloww.skin" target="_blank" class="instagram-link">
+                    <i class="fab fa-instagram"></i>
+                    Follow @truegloww.skin
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div id="product" class="page">
+        <section class="product-detail">
+            <div class="container">
+                <div class="product-gallery">
+                    <div>
+                        <div class="gallery-main">
+                             <img id="mainImage" src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash">
+                        </div>
+                        <div class="gallery-thumbs">
+                            <div class="thumb active" onclick="changeImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg')">
+                                <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="Image 1">
+                            </div>
+                            <div class="thumb" onclick="changeImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img2.jpeg')">
+                                <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img2.jpeg" alt="Image 2">
+                            </div>
+                            <div class="thumb" onclick="changeImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img3.jpeg')">
+                                <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img3.jpeg" alt="Image 3">
+                            </div>
+                            <div class="thumb" onclick="changeImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img%204.jpg')">
+                                <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img%204.jpg" alt="Image 4">
+                            </div>
+                            <div class="thumb" onclick="changeImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img%205.jpeg')">
+                                <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img%205.jpeg" alt="Image 5">
+                            </div>
+                            <div class="thumb" onclick="changeImage('https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img6.jpg')">
+                                <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img6.jpg" alt="Image 6">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h1>SADOER Avocado Mousse Face Wash</h1>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span>(4.8/5 - 127 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹249</span>
+                            <span class="old-price">₹599</span>
+                            <span class="discount-percent">58% OFF</span>
+                        </div>
+                        <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
+                            Transform your daily skincare routine with our luxurious mousse face wash. This gentle yet effective formula removes impurities while maintaining your skin's natural moisture balance.
+                        </p>
+                        <a href="https://wa.me/c/917093560884" target="_blank" class="order-button">
+                            <i class="fab fa-whatsapp"></i>
+                            Order Now via WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product Information Tabs -->
+                <div class="product-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="showTab('benefits')">Benefits</button>
+                        <button class="tab-button" onclick="showTab('why-love')">Why You'll Love It</button>
+                        <button class="tab-button" onclick="showTab('ingredients')">Ingredients</button>
+                        <button class="tab-button" onclick="showTab('usage')">How to Use</button>
+                    </div>
+                    
+                    <div id="benefits" class="tab-content active">
+                        <h3 style="color: var(--gold); margin-bottom: 1rem;">✨ Key Benefits</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                Deep Cleans Pores – Removes dirt, grease & pollution
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                Oil Control Formula – Keeps skin fresh & non-greasy
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                Mild & Non-Irritating – Gentle enough for daily use
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                Avocado Extract Enriched – Nourishes, soothes & repairs skin
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                Dense Mousse Foam – Soft, creamy & easy to rinse
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                Built-in Brush Head – Better cleansing & gentle massage
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                For All Skin Types – Suitable for men & women
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="why-love" class="tab-content">
+                        <h3 style="color: var(--gold); margin-bottom: 1rem;">🥑 Why You'll Love It</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                Leaves skin clean, soft & moisturized
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                Helps reduce dullness caused by oil and impurities
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                Avocado-powered nourishment for healthy-looking skin
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                Travel-friendly and easy-to-use pump bottle
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="ingredients" class="tab-content">
+                        <h3 style="color: var(--gold); margin-bottom: 1rem;">Premium Ingredients</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--gold);">Hyaluronic Acid</strong>
+                                <p style="margin-top: 0.5rem; opacity: 0.9;">Provides intense hydration and plumps the skin</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--gold);">Vitamin E</strong>
+                                <p style="margin-top: 0.5rem; opacity: 0.9;">Antioxidant protection against environmental damage</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--gold);">Aloe Vera</strong>
+                                <p style="margin-top: 0.5rem; opacity: 0.9;">Soothes and calms irritated skin</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--gold);">Green Tea Extract</strong>
+                                <p style="margin-top: 0.5rem; opacity: 0.9;">Anti-inflammatory properties for balanced skin</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="usage" class="tab-content">
+                        <h3 style="color: var(--gold); margin-bottom: 1rem;">How to Use</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                <p>Wet your face with lukewarm water</p>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                <p>Pump 2-3 times to dispense the mousse</p>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                <p>Gently massage onto face in circular motions</p>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                <p>Rinse thoroughly with water and pat dry</p>
+                            </div>
+                            <div style="margin-top: 1rem; padding: 1rem; background: rgba(201, 169, 98, 0.1); border-left: 3px solid var(--gold); border-radius: 5px;">
+                                <strong style="color: var(--gold);">Pro Tip:</strong> Use twice daily (morning and evening) for best results
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><i class="fab fa-whatsapp"></i> WhatsApp: 7093560884,7675902745</p>
+                    <p><i class="fas fa-envelope"></i> Visit our catalog for more products</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/truegloww.skin" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/c/917093560884" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; opacity: 0.7;">
+                © 2024 TrueGloww. All rights reserved. | A Skincare Legacy
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/c/917093560884" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Product image gallery
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+            
+            // Update active thumbnail
+            const thumbs = document.querySelectorAll('.thumb');
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+            event.target.closest('.thumb').classList.add('active');
+        }
+
+        // Product tabs
+        function showTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Smooth scrolling for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add scroll effect to navbar
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.98)';
+                } else {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+                }
+            });
+            
+            // Add loading animation to images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
