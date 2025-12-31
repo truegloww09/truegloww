@@ -21,6 +21,10 @@
             --rose: #E8B4CB;
             --white: #ffffff;
             --light-gray: #f8f9fa;
+            /* additional accents for enhanced visuals */
+            --accent-warm: #FFD89A;
+            --muted: #9aa4b2;
+            --hero-overlay: rgba(11,18,32,0.04);
         }
 
         body {
@@ -55,6 +59,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
 
         .logo-icon {
@@ -117,16 +122,30 @@
         /* Hero Section */
         .hero {
             min-height: 100vh;
-            background: 
-                linear-gradient(rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8)),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="marble" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%23000"/><path d="M10 20c20-10 40 5 60-5s40-15 30 5-20 15-40 10-30-5-50-5z" fill="%23111" opacity="0.3"/><path d="M70 60c-15 8-25-3-40 7s-20 18-35 3 10-20 25-15 35 2 50 5z" fill="%23222" opacity="0.2"/></pattern></defs><rect width="100%" height="100%" fill="url(%23marble)"/></svg>');
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
+            background-image:
+                radial-gradient(1000px 400px at 10% 30%, rgba(255,216,150,0.05), transparent 8%),
+                radial-gradient(800px 360px at 85% 70%, rgba(232,180,203,0.035), transparent 10%),
+                linear-gradient(180deg, var(--primary-dark) 0%, rgba(22,33,52,0.95) 50%, var(--secondary-dark) 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><filter id="t"><feTurbulence baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" fill="%230b1220" filter="url(%23t)" opacity="0.02"/></svg>');
+            background-size: cover, cover, cover, cover;
+            background-position: center center;
+            background-blend-mode: overlay, overlay, normal, normal;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(255,216,150,0.03), rgba(232,180,203,0.02));
+            pointer-events: none;
+            mix-blend-mode: screen;
+            animation: floatGradient 8s linear infinite alternate;
         }
 
         .hero-content {
@@ -161,22 +180,31 @@
         }
 
         .cta-button {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            background: linear-gradient(90deg, var(--gold) 0%, var(--accent-warm) 65%);
             color: var(--primary-dark);
-            padding: 1rem 2.5rem;
+            padding: 0.9rem 2.2rem;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 40px;
+            font-size: 1.05rem;
+            font-weight: 700;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 12px 30px rgba(10, 16, 26, 0.45), 0 0 18px rgba(201,169,98,0.08) inset;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.4);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 22px 48px rgba(10, 16, 26, 0.6), 0 0 32px rgba(201,169,98,0.16) inset;
+        }
+
+        /* Reveal-on-scroll helper */
+        .reveal-on-scroll { opacity: 0; transform: translateY(18px); transition: opacity 600ms ease, transform 600ms ease; }
+        .reveal-on-scroll.reveal { opacity: 1; transform: translateY(0); }
+
+        @keyframes floatGradient {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-12px) translateX(8px); }
         }
 
         /* Featured Product */
@@ -662,12 +690,12 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <img src="https://i.postimg.cc/pV9BTXzt/Whats-App-Image-2025-12-27-at-10-14-56-PM.jpg" alt="TrueGloww Logo">
+                <div class="logo" role="button" tabindex="0" title="Go to Home" onclick="showPage('home')" onkeypress="if(event.key==='Enter'||event.keyCode===13) showPage('home')">
+                    <div class="logo-icon">
+                        <img src="https://i.postimg.cc/pV9BTXzt/Whats-App-Image-2025-12-27-at-10-14-56-PM.jpg" alt="TrueGloww Logo">
+                    </div>
+                    <span class="logo-text">TrueGloww</span>
                 </div>
-                <span class="logo-text">TrueGloww</span>
-            </div>
             <ul class="nav-links">
                 <li><a href="#" onclick="showPage('home')">Home</a></li>
                 <li><a href="#" onclick="showPage('product')">Products</a></li>
@@ -692,9 +720,9 @@
         <section class="featured-product">
             <div class="container">
                 <h2 class="section-title">Featured Products</h2>
-                <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
-                    <button onclick="showFeaturedProduct('avocado')" id="feat-btn-avocado" class="product-selector-btn active">SADOER Avocado Mousse</button>
-                    <button onclick="showFeaturedProduct('rose')" id="feat-btn-rose" class="product-selector-btn">SADOER ROSE Mousse</button>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <button onclick="showCategory('facewashes')" id="cat-facewashes" class="product-selector-btn active">Face Washes</button>
+                    <button onclick="showCategory('facemasks')" id="cat-facemasks" class="product-selector-btn">Face Masks</button>
                 </div>
                 
                 <!-- Avocado Featured Product -->
@@ -725,7 +753,7 @@
                 </div>
 
                 <!-- Rose Featured Product -->
-                <div id="featured-rose" class="featured-content" style="display: none;">
+                <div id="featured-rose" class="featured-content">
                     <div class="product-showcase">
                         <div class="product-image">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="SADOER ROSE Mousse Face Wash">
@@ -749,6 +777,12 @@
                             <a href="#" onclick="showPage('product'); showProductDetail('rose')" class="cta-button">View Details</a>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Face Masks placeholder -->
+                <div id="featured-masks" class="featured-content" style="display: none; text-align: center; padding: 4rem 0;">
+                    <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem;">Face Masks — Coming Soon</h3>
+                    <p style="opacity: 0.9; max-width: 700px; margin: 0 auto;">We're preparing a curated selection of face masks. Subscribe or check back soon to see our premium sheet and clay masks.</p>
                 </div>
             </div>
         </section>
@@ -1234,6 +1268,29 @@
             }
         }
 
+        // Category view for featured products
+        function showCategory(category) {
+            const featAvocado = document.getElementById('featured-avocado');
+            const featRose = document.getElementById('featured-rose');
+            const featMasks = document.getElementById('featured-masks');
+            const btnW = document.getElementById('cat-facewashes');
+            const btnM = document.getElementById('cat-facemasks');
+
+            if (category === 'facewashes') {
+                featAvocado.style.display = 'block';
+                featRose.style.display = 'block';
+                featMasks.style.display = 'none';
+                btnW.classList.add('active');
+                btnM.classList.remove('active');
+            } else if (category === 'facemasks') {
+                featAvocado.style.display = 'none';
+                featRose.style.display = 'none';
+                featMasks.style.display = 'block';
+                btnW.classList.remove('active');
+                btnM.classList.add('active');
+            }
+        }
+
         // Show product detail view
         function showProductDetail(product) {
             const gridView = document.getElementById('products-grid');
@@ -1320,7 +1377,7 @@
             event.target.classList.add('active');
         }
 
-        // Smooth scrolling for navigation
+        // Smooth scrolling for navigation and interactive enhancements
         document.addEventListener('DOMContentLoaded', function() {
             // Add scroll effect to navbar
             window.addEventListener('scroll', function() {
@@ -1331,14 +1388,65 @@
                     navbar.style.background = 'rgba(26, 26, 46, 0.95)';
                 }
             });
-            
-            // Add loading animation to images
+
+            // Add loading animation to images and handle cached or failed loads
             const images = document.querySelectorAll('img');
             images.forEach(img => {
-                img.addEventListener('load', function() {
-                    this.style.opacity = '1';
+                // initial hidden state for reveal animation
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 600ms ease, transform 400ms ease';
+
+                const reveal = () => { img.style.opacity = '1'; };
+
+                img.addEventListener('load', reveal);
+                img.addEventListener('error', function() {
+                    // replace broken images with a neutral placeholder
+                    if (!img.dataset.fallback) {
+                        img.dataset.fallback = '1';
+                        img.src = 'https://via.placeholder.com/800x500?text=Image+not+available';
+                    }
+                    reveal();
                 });
+
+                // If the image was cached and already loaded, show it immediately
+                if (img.complete && img.naturalWidth && img.naturalHeight) {
+                    reveal();
+                }
             });
+
+            // Reveal-on-scroll: observe key blocks and animate in
+            const revealSelector = '.section-title, .product-image, .product-info, .trust-badge, .instagram-section, .featured-product, .product-showcase, .hero-content';
+            const toReveal = document.querySelectorAll(revealSelector);
+            toReveal.forEach(el => el.classList.add('reveal-on-scroll'));
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+            // Hero mouse parallax (subtle)
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            if (hero && heroContent) {
+                heroContent.style.transition = 'transform 300ms cubic-bezier(.2,.9,.2,1)';
+                hero.addEventListener('mousemove', (e) => {
+                    const rect = hero.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    const tx = x * 20; // horizontal movement
+                    const ty = y * 12; // vertical movement
+                    heroContent.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(1.01)`;
+                });
+                hero.addEventListener('mouseleave', () => {
+                    heroContent.style.transform = '';
+                });
+            }
         });
     </script>
 </body>
