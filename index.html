@@ -965,8 +965,8 @@
                                 </div>
                                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                     <span class="pack-badge">2 × ₹249</span>
-                                    <span class="pack-badge">3 × ₹369</span>
-                                    <span class="pack-badge">4 × ₹449</span>
+                                    <span class="pack-badge">3 × ₹349</span>
+                                    <span class="pack-badge">4 × ₹399</span>
                                 </div>
                             </div>
                             <p class="product-description">
@@ -1076,7 +1076,7 @@
                                     <span style="color: var(--primary); font-size: 1.2rem; font-weight: 700;">Packs: 2 @ ₹249</span>
                                     <span style="color: #999; text-decoration: line-through; font-size: 0.9rem;">MRP ₹499</span>
                                 </div>
-                                <span style="color: var(--text); opacity: 0.85;">3 @ ₹369 · 4 @ ₹449</span>
+                                <span style="color: var(--text); opacity: 0.85;">3 @ ₹349 · 4 @ ₹399</span>
                                 <span style="background: #ffd166; color: #000; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem; align-self: flex-start;">New</span>
                             </div>
                         </div>
@@ -1636,11 +1636,11 @@
                                         </button>
                                         <button data-pack="3" class="pack-circle-btn" onclick="selectCollagenPack('3')">
                                             <span class="pack-number">3</span>
-                                            <span class="pack-price">₹369</span>
+                                            <span class="pack-price">₹349</span>
                                         </button>
                                         <button data-pack="4" class="pack-circle-btn" onclick="selectCollagenPack('4')">
                                             <span class="pack-number">4</span>
-                                            <span class="pack-price">₹449</span>
+                                            <span class="pack-price">₹399</span>
                                         </button>
                                     </div>
                                 </div>
@@ -2046,7 +2046,7 @@
 
         // Collagen pack selector
         function selectCollagenPack(pack) {
-            const priceMap = { '2': '₹249', '3': '₹369', '4': '₹449' };
+            const priceMap = { '2': '₹249', '3': '₹349', '4': '₹399' };
             const mrpMap = { '2': '₹499', '3': '₹799', '4': '₹999' };
             const labelMap = { '2': 'Pack of 2', '3': 'Pack of 3', '4': 'Pack of 4' };
             document.getElementById('collagenPrice').textContent = priceMap[pack] || priceMap['2'];
