@@ -120,6 +120,15 @@
         .bg-english-pink { background: var(--english-pink) !important; color: #fff !important; }
         .border-english-pink { border-color: var(--english-pink) !important; }
 
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
@@ -152,6 +161,16 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
 
         /* Hero Section */
@@ -651,8 +670,25 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--navbar-color);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
             }
 
             .hero h1 {
@@ -730,10 +766,13 @@
                     </div>
                     <span class="logo-text">TrueGloww</span>
                 </div>
-            <ul class="nav-links">
-                <li><a href="#" onclick="showPage('home')">Home</a></li>
-                <li><a href="#" onclick="showPage('product')">Products</a></li>
-                <li><a href="https://wa.me/7093560884" target="_blank">Contact</a></li>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home'); closeMobileMenu()">Home</a></li>
+                <li><a href="#" onclick="showPage('product'); closeMobileMenu()">Products</a></li>
+                <li><a href="https://wa.me/7093560884" target="_blank" onclick="closeMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -951,7 +990,7 @@
                         </div>
 
                         <!-- BIO-COLLAGEN Mask Product Card -->
-                        <div onclick="showProductDetail('collagen')" style="cursor: pointer; background: var(--card); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; padding: 1.5rem;" onmouseover="this.style.boxShadow='0 14px 32px rgba(0,0,0,0.08)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'>
+                        <div onclick="showProductDetail('collagen')" style="cursor: pointer; background: var(--card); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; padding: 1.5rem;" onmouseover="this.style.boxShadow='0 14px 32px rgba(0,0,0,0.08)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg" alt="BIO-COLLAGEN Real Deep Mask" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
                             <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">BIO-COLLAGEN Real Deep Mask</h3>
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Mask</p>
@@ -1692,6 +1731,17 @@
     </a>
 
     <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
         // Page navigation
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
