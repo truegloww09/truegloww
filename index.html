@@ -14,6 +14,7 @@
         }
 
         :root {
+            /* Base legacy tokens */
             --primary-dark: #1a1a2e;
             --secondary-dark: #16213e;
             --gold: #C9A962;
@@ -21,16 +22,29 @@
             --rose: #E8B4CB;
             --white: #ffffff;
             --light-gray: #f8f9fa;
-            /* additional accents for enhanced visuals */
             --accent-warm: #FFD89A;
             --muted: #9aa4b2;
             --hero-overlay: rgba(11,18,32,0.04);
+
+            /* New rose-gold palette (user request) */
+            --primary: #B76E79;     /* Rose Gold */
+            --secondary: #2C1810;   /* Deep Chocolate Brown */
+            --accent: #F4E4D7;      /* Nude Blush */
+            --background: #ffffff;  /* White background requested */
+            --text: #2C1810;        /* Dark Brown */
+
+            --card: #FFFFFF;        /* Cards background */
+            --card-border: #B76E79; /* Rose gold border for cards */
+            --logo-color: saddlebrown; /* English-style named color for logo */
+            --english-pink: mediumvioletred; /* dark English pink (named color) */
+            /* Solid rose-pink navbar to match brand primary color */
+            --navbar-color: var(--primary);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
-            color: var(--white);
+            background: var(--background);
+            color: var(--text);
             line-height: 1.6;
         }
 
@@ -39,52 +53,72 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--navbar-color); /* configurable navbar color */
+            color: #fff;
+            backdrop-filter: none;
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 2px solid var(--gold);
+            border: 2px solid var(--logo-color);
+            background: var(--background);
+            padding: 4px; /* white ring to mask dark image edges */
+            box-shadow: 0 2px 8px rgba(12,12,12,0.04);
         }
 
         .logo-icon img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            background: transparent;
+        }
+
+        /* Ensure any .logo block uses the same layout and is easy to reuse */
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Force images inside .logo to render as intended even with inline styles */
+        .logo img {
+            border-radius: 50% !important;
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            mix-blend-mode: normal !important;
+            background: transparent !important;
         }
 
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             font-weight: 600;
-            color: var(--gold);
+            color: var(--logo-color);
         }
+
+        /* Navbar-specific overrides for contrast on english-pink */
+        .navbar .logo-text { color: #fff; }
+
+        /* Utility classes for 'English pink' */
+        .text-english-pink { color: var(--english-pink) !important; }
+        .bg-english-pink { background: var(--english-pink) !important; color: #fff !important; }
+        .border-english-pink { border-color: var(--english-pink) !important; }
 
         .nav-links {
             display: flex;
@@ -92,8 +126,9 @@
             gap: 2rem;
         }
 
+
         .nav-links a {
-            color: var(--white);
+            color: #fff;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
@@ -101,7 +136,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--gold);
+            color: rgba(255,255,255,0.95);
         }
 
         .nav-links a::after {
@@ -111,7 +146,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--gold);
+            background: rgba(255,255,255,0.9);
             transition: width 0.3s ease;
         }
 
@@ -127,25 +162,12 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background-image:
-                radial-gradient(1000px 400px at 10% 30%, rgba(255,216,150,0.05), transparent 8%),
-                radial-gradient(800px 360px at 85% 70%, rgba(232,180,203,0.035), transparent 10%),
-                linear-gradient(180deg, var(--primary-dark) 0%, rgba(22,33,52,0.95) 50%, var(--secondary-dark) 100%),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><filter id="t"><feTurbulence baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" fill="%230b1220" filter="url(%23t)" opacity="0.02"/></svg>');
-            background-size: cover, cover, cover, cover;
-            background-position: center center;
-            background-blend-mode: overlay, overlay, normal, normal;
+            background: var(--background);
             overflow: hidden;
         }
 
         .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, rgba(255,216,150,0.03), rgba(232,180,203,0.02));
-            pointer-events: none;
-            mix-blend-mode: screen;
-            animation: floatGradient 8s linear infinite alternate;
+            display: none;
         }
 
         .hero-content {
@@ -159,7 +181,7 @@
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -180,22 +202,23 @@
         }
 
         .cta-button {
-            background: linear-gradient(90deg, var(--gold) 0%, var(--accent-warm) 65%);
-            color: var(--primary-dark);
+            background: var(--primary);
+            color: #ffffff;
             padding: 0.9rem 2.2rem;
-            border: none;
+            border: 1px solid var(--card-border);
             border-radius: 40px;
             font-size: 1.05rem;
             font-weight: 700;
             text-decoration: none;
             display: inline-block;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            box-shadow: 0 12px 30px rgba(10, 16, 26, 0.45), 0 0 18px rgba(201,169,98,0.08) inset;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
         }
 
         .cta-button:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 22px 48px rgba(10, 16, 26, 0.6), 0 0 32px rgba(201,169,98,0.16) inset;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 34px rgba(0,0,0,0.06);
+            filter: brightness(1.02);
         }
 
         /* Reveal-on-scroll helper */
@@ -210,7 +233,17 @@
         /* Featured Product */
         .featured-product {
             padding: 6rem 0;
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--background);
+        }
+
+        /* Card component styling per user request */
+        .card {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(12,12,12,0.04);
         }
 
         .container {
@@ -224,7 +257,7 @@
             font-size: 3rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: var(--gold);
+            color: var(--primary);
         }
 
         .product-showcase {
@@ -268,7 +301,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--gold);
+            color: var(--primary);
         }
 
         .price {
@@ -277,7 +310,7 @@
 
         .sale-price {
             font-size: 2rem;
-            color: var(--gold);
+            color: var(--primary);
             font-weight: 600;
             margin-right: 1rem;
         }
@@ -307,13 +340,13 @@
         }
 
         .product-features li i {
-            color: var(--gold);
+            color: var(--primary);
         }
 
         /* Trust Badges */
         .trust-section {
             padding: 6rem 0;
-            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
+            background: var(--background);
         }
 
         .trust-badges {
@@ -327,8 +360,8 @@
             text-align: center;
             padding: 2rem;
             border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: var(--card);
+            backdrop-filter: none;
             transition: transform 0.3s ease;
         }
 
@@ -338,14 +371,14 @@
 
         .trust-badge i {
             font-size: 3rem;
-            color: var(--gold);
+            color: var(--primary);
             margin-bottom: 1rem;
         }
 
         .trust-badge h4 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--gold);
+            color: var(--primary);
         }
 
         /* Instagram Section */
@@ -374,7 +407,8 @@
 
         /* Footer */
         .footer {
-            background: var(--primary-dark);
+            background: var(--background);
+            color: var(--text);
             padding: 3rem 0 1rem;
             text-align: center;
         }
@@ -387,7 +421,7 @@
         }
 
         .footer-section h4 {
-            color: var(--gold);
+            color: var(--primary);
             margin-bottom: 1rem;
         }
 
@@ -401,8 +435,8 @@
         .social-links a {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -492,7 +526,7 @@
         .product-details h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: var(--gold);
+            color: var(--primary);
             margin-bottom: 1rem;
         }
 
@@ -504,7 +538,7 @@
         }
 
         .stars {
-            color: var(--gold);
+            color: var(--primary);
         }
 
         .product-price {
@@ -513,7 +547,7 @@
 
         .current-price {
             font-size: 2.5rem;
-            color: var(--gold);
+            color: var(--primary);
             font-weight: 700;
             margin-right: 1rem;
         }
@@ -569,7 +603,7 @@
         .tab-button {
             background: none;
             border: none;
-            color: var(--white);
+            color: var(--text);
             padding: 1rem 2rem;
             font-size: 1.1rem;
             cursor: pointer;
@@ -578,8 +612,8 @@
         }
 
         .tab-button.active {
-            color: var(--gold);
-            border-bottom-color: var(--gold);
+            color: var(--primary);
+            border-bottom-color: var(--primary);
         }
 
         .tab-content {
@@ -593,9 +627,9 @@
 
         /* Product Selector */
         .product-selector-btn {
-            background: rgba(201, 169, 98, 0.2);
-            color: var(--white);
-            border: 2px solid var(--gold);
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid rgba(0,0,0,0.06);
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
             font-size: 1rem;
@@ -605,14 +639,14 @@
         }
 
         .product-selector-btn:hover {
-            background: var(--gold);
-            color: var(--primary-dark);
+            background: var(--primary);
+            color: #ffffff;
             transform: translateY(-3px);
         }
 
         .product-selector-btn.active {
-            background: var(--gold);
-            color: var(--primary-dark);
+            background: var(--primary);
+            color: #ffffff;
         }
 
         /* Responsive Design */
@@ -778,11 +812,59 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Orange Featured Product -->
+                <div id="featured-orange" class="featured-content">
+                    <div class="product-showcase">
+                        <div class="product-image">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img1.jpg" alt="SADOER Orange Elite Mousse Face Wash">
+                            <div class="discount-badge">58% OFF</div>
+                        </div>
+                        <div class="product-info">
+                            <h3>SADOER Orange Elite Mousse Face Wash</h3>
+                            <div class="price">
+                                <span class="sale-price">₹249</span>
+                                <span class="original-price">₹599</span>
+                            </div>
+                            <p class="product-description">
+                                Brighten dull, tired skin with this Vitamin C-rich mousse cleanser. The dense foam lifts away oil, pollution, and sunscreen while orange extract and amino acids leave skin soft, radiant, and hydrated.
+                            </p>
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> Vitamin C glow boost</li>
+                                <li><i class="fas fa-check"></i> Deep pore cleansing mousse</li>
+                                <li><i class="fas fa-check"></i> Gentle amino-acid surfactants</li>
+                                <li><i class="fas fa-check"></i> All skin types, daily use</li>
+                            </ul>
+                            <a href="#" onclick="showPage('product'); showProductDetail('orange')" class="cta-button">View Details</a>
+                        </div>
+                    </div>
+                </div>
                 
-                <!-- Face Masks placeholder -->
-                <div id="featured-masks" class="featured-content" style="display: none; text-align: center; padding: 4rem 0;">
-                    <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem;">Face Masks — Coming Soon</h3>
-                    <p style="opacity: 0.9; max-width: 700px; margin: 0 auto;">We're preparing a curated selection of face masks. Subscribe or check back soon to see our premium sheet and clay masks.</p>
+                <!-- Face Masks Featured Product -->
+                <div id="featured-masks" class="featured-content" style="display: none;">
+                    <div class="product-showcase">
+                        <div class="product-image">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg" alt="BIO-COLLAGEN Real Deep Mask">
+                            <div class="discount-badge">New Arrival</div>
+                        </div>
+                        <div class="product-info">
+                            <h3>BIO-COLLAGEN Real Deep Mask</h3>
+                            <div class="price" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                                <span class="sale-price">₹249</span>
+                                <div style="font-size: 0.95rem; color: var(--text); opacity: 0.9;">Pack of 2 @ ₹249 · Pack of 3 @ ₹369 · Pack of 4 @ ₹449</div>
+                            </div>
+                            <p class="product-description">
+                                Intensive bio-collagen sheet mask that drenches skin with hydration, firms, and leaves a plump, glassy finish. Powered by low-molecular collagen, hyaluronic acid, and probiotic ferment.
+                            </p>
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> Deep hydration and bounce</li>
+                                <li><i class="fas fa-check"></i> Firms and refines pores</li>
+                                <li><i class="fas fa-check"></i> Low-molecular collagen for faster absorption</li>
+                                <li><i class="fas fa-check"></i> Sheet mask comfort for all skin types</li>
+                            </ul>
+                            <a href="#" onclick="showPage('product'); showProductDetail('collagen')" class="cta-button">View Details</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -833,26 +915,50 @@
                     <h2 class="section-title">Our Products</h2>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
                         <!-- Avocado Product Card -->
-                        <div onclick="showProductDetail('avocado')" style="cursor: pointer; background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; padding: 1.5rem;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'">
+                        <div onclick="showProductDetail('avocado')" style="cursor: pointer; background: var(--card); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; padding: 1.5rem;" onmouseover="this.style.boxShadow='0 14px 32px rgba(0,0,0,0.08)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-                            <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER Avocado Mousse</h3>
+                            <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER Avocado Mousse</h3>
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span style="color: var(--gold); font-size: 1.5rem; font-weight: 600;">₹249</span>
+                                <span style="color: var(--primary); font-size: 1.5rem; font-weight: 600;">₹249</span>
                                 <span style="color: #999; text-decoration: line-through;">₹599</span>
                                 <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
                             </div>
                         </div>
 
                         <!-- Rose Product Card -->
-                        <div onclick="showProductDetail('rose')" style="cursor: pointer; background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; padding: 1.5rem;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'">
+                        <div onclick="showProductDetail('rose')" style="cursor: pointer; background: var(--card); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; padding: 1.5rem;" onmouseover="this.style.boxShadow='0 14px 32px rgba(0,0,0,0.08)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="SADOER ROSE Mousse Face Wash" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-                            <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER ROSE Mousse</h3>
+                            <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER ROSE Mousse</h3>
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span style="color: var(--gold); font-size: 1.5rem; font-weight: 600;">₹249</span>
+                                <span style="color: var(--primary); font-size: 1.5rem; font-weight: 600;">₹249</span>
                                 <span style="color: #999; text-decoration: line-through;">₹599</span>
                                 <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
+                            </div>
+                        </div>
+
+                        <!-- Orange Product Card -->
+                        <div onclick="showProductDetail('orange')" style="cursor: pointer; background: var(--card); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; padding: 1.5rem;" onmouseover="this.style.boxShadow='0 14px 32px rgba(0,0,0,0.08)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img1.jpg" alt="SADOER Orange Elite Mousse Face Wash" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                            <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">SADOER Orange Elite Mousse</h3>
+                            <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span style="color: var(--primary); font-size: 1.5rem; font-weight: 600;">₹249</span>
+                                <span style="color: #999; text-decoration: line-through;">₹599</span>
+                                <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
+                            </div>
+                        </div>
+
+                        <!-- BIO-COLLAGEN Mask Product Card -->
+                        <div onclick="showProductDetail('collagen')" style="cursor: pointer; background: var(--card); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; padding: 1.5rem;" onmouseover="this.style.boxShadow='0 14px 32px rgba(0,0,0,0.08)'; this.style.transform='translateY(-10px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'>
+                            <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg" alt="BIO-COLLAGEN Real Deep Mask" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                            <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">BIO-COLLAGEN Real Deep Mask</h3>
+                            <p style="color: var(--rose); margin-bottom: 1rem;">Face Mask</p>
+                            <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+                                <span style="color: var(--primary); font-size: 1.2rem; font-weight: 700;">Packs: 2 @ ₹249</span>
+                                <span style="color: var(--text); opacity: 0.85;">3 @ ₹369 · 4 @ ₹449</span>
+                                <span style="background: #ffd166; color: #000; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem; align-self: flex-start;">New</span>
                             </div>
                         </div>
                     </div>
@@ -862,7 +968,7 @@
                 <div id="product-detail-view" style="display: none;">
                     <!-- Avocado Detail -->
                     <div id="avocado-detail">
-                        <a href="#" onclick="hideProductDetail()" style="color: var(--gold); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                        <a href="#" onclick="hideProductDetail()" style="color: var(--primary); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
                         <div class="product-gallery">
                     <div>
                         <div class="gallery-main">
@@ -926,41 +1032,41 @@
                     </div>
                     
                     <div id="benefits" class="tab-content active">
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">✨ Key Benefits</h3>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">✨ Key Benefits</h3>
                         <ul style="list-style: none; padding: 0;">
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 Deep Cleans Pores – Removes dirt, grease & pollution
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 Oil Control Formula – Keeps skin fresh & non-greasy
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 Mild & Non-Irritating – Gentle enough for daily use
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 Avocado Extract Enriched – Nourishes, soothes & repairs skin
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 Dense Mousse Foam – Soft, creamy & easy to rinse
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 Built-in Brush Head – Better cleansing & gentle massage
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                 For All Skin Types – Suitable for men & women
                             </li>
                         </ul>
                     </div>
                     
                     <div id="why-love" class="tab-content">
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">🥑 Why You'll Love It</h3>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">🥑 Why You'll Love It</h3>
                         <ul style="list-style: none; padding: 0;">
                             <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
                                 <i class="fas fa-heart" style="color: var(--rose);"></i>
@@ -982,48 +1088,48 @@
                     </div>
                     
                     <div id="ingredients" class="tab-content">
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">Premium Ingredients</h3>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Premium Ingredients</h3>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                <strong style="color: var(--gold);">Hyaluronic Acid</strong>
+                            <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--primary);">Hyaluronic Acid</strong>
                                 <p style="margin-top: 0.5rem; opacity: 0.9;">Provides intense hydration and plumps the skin</p>
                             </div>
-                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                <strong style="color: var(--gold);">Vitamin E</strong>
+                            <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--primary);">Vitamin E</strong>
                                 <p style="margin-top: 0.5rem; opacity: 0.9;">Antioxidant protection against environmental damage</p>
                             </div>
-                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                <strong style="color: var(--gold);">Aloe Vera</strong>
+                            <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--primary);">Aloe Vera</strong>
                                 <p style="margin-top: 0.5rem; opacity: 0.9;">Soothes and calms irritated skin</p>
                             </div>
-                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                <strong style="color: var(--gold);">Green Tea Extract</strong>
+                            <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--primary);">Green Tea Extract</strong>
                                 <p style="margin-top: 0.5rem; opacity: 0.9;">Anti-inflammatory properties for balanced skin</p>
                             </div>
                         </div>
                     </div>
                     
                     <div id="usage" class="tab-content">
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">How to Use</h3>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">How to Use</h3>
                         <div style="display: flex; flex-direction: column; gap: 1rem;">
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
                                 <p>Wet your face with lukewarm water</p>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
                                 <p>Pump 2-3 times to dispense the mousse</p>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
                                 <p>Gently massage onto face in circular motions</p>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
                                 <p>Rinse thoroughly with water and pat dry</p>
                             </div>
-                            <div style="margin-top: 1rem; padding: 1rem; background: rgba(201, 169, 98, 0.1); border-left: 3px solid var(--gold); border-radius: 5px;">
-                                <strong style="color: var(--gold);">Pro Tip:</strong> Use twice daily (morning and evening) for best results
+                            <div style="margin-top: 1rem; padding: 1rem; background: rgba(183,110,121,0.06); border-left: 3px solid var(--card-border); border-radius: 5px;">
+                                <strong style="color: var(--primary);">Pro Tip:</strong> Use twice daily (morning and evening) for best results
                             </div>
                         </div>
                     </div>
@@ -1032,7 +1138,7 @@
 
                     <!-- Rose Detail -->
                     <div id="rose-detail" style="display: none;">
-                        <a href="#" onclick="hideProductDetail()" style="color: var(--gold); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                        <a href="#" onclick="hideProductDetail()" style="color: var(--primary); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
                         <div class="product-gallery">
                             <div>
                             <div class="gallery-main">
@@ -1096,41 +1202,41 @@
                         </div>
                         
                         <div id="rose-benefits" class="tab-content active">
-                            <h3 style="color: var(--gold); margin-bottom: 1rem;">✨ Key Benefits</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">✨ Key Benefits</h3>
                             <ul style="list-style: none; padding: 0;">
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     Deep Cleans Pores – Removes dirt, grease & pollution
                                 </li>
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     Oil Control Formula – Keeps skin fresh & non-greasy
                                 </li>
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     Mild & Non-Irritating – Gentle enough for daily use
                                 </li>
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     Rose Extract Enriched – Soothes & repairs skin
                                 </li>
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     Dense Mousse Foam – Soft, creamy & easy to rinse
                                 </li>
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     Built-in Brush Head – Better cleansing & massage
                                 </li>
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-check-circle" style="color: var(--gold);"></i>
+                                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
                                     For All Skin Types – Suitable for men & women
                                 </li>
                             </ul>
                         </div>
                         
                         <div id="rose-why-love" class="tab-content">
-                            <h3 style="color: var(--gold); margin-bottom: 1rem;">🌸 Why You'll Love It</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">🌸 Why You'll Love It</h3>
                             <ul style="list-style: none; padding: 0;">
                                 <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
                                     <i class="fas fa-heart" style="color: var(--rose);"></i>
@@ -1152,58 +1258,405 @@
                         </div>
                         
                         <div id="rose-ingredients" class="tab-content">
-                            <h3 style="color: var(--gold); margin-bottom: 1rem;">Premium Rose Ingredients</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">Premium Rose Ingredients</h3>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: var(--gold);">Rose Extract</strong>
+                                <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--primary);">Rose Extract</strong>
                                     <p style="margin-top: 0.5rem; opacity: 0.9;">Premium rose extract soothes irritation and provides natural antioxidants</p>
                                 </div>
-                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: var(--gold);">Amino Acid Complex</strong>
+                                <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--primary);">Amino Acid Complex</strong>
                                     <p style="margin-top: 0.5rem; opacity: 0.9;">Essential amino acids strengthen skin barrier and improve elasticity</p>
                                 </div>
-                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: var(--gold);">Rose Water</strong>
+                                <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--primary);">Rose Water</strong>
                                     <p style="margin-top: 0.5rem; opacity: 0.9;">Natural rose water balances skin pH and provides hydration</p>
                                 </div>
-                                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
-                                    <strong style="color: var(--gold);">Rose Hip Oil</strong>
+                                <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                    <strong style="color: var(--primary);">Rose Hip Oil</strong>
                                     <p style="margin-top: 0.5rem; opacity: 0.9;">Rich in vitamins A and E for skin repair and rejuvenation</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div id="rose-usage" class="tab-content">
-                            <h3 style="color: var(--gold); margin-bottom: 1rem;">🧴 How to Use</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">🧴 How to Use</h3>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                    <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
                                     <p>Press the pump to release foam</p>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                    <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
                                     <p>Apply gently on wet face</p>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                    <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
                                     <p>Massage in circular motion using the brush</p>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div style="background: var(--gold); color: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                    <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
                                     <p>Rinse thoroughly with water</p>
                                 </div>
-                                <div style="margin-top: 1rem; padding: 1rem; background: rgba(201, 169, 98, 0.1); border-left: 3px solid var(--gold); border-radius: 5px;">
-                                    <strong style="color: var(--gold);">Pro Tip:</strong> Use morning & night for best results
+                                <div style="margin-top: 1rem; padding: 1rem; background: rgba(183,110,121,0.06); border-left: 3px solid var(--card-border); border-radius: 5px;">
+                                    <strong style="color: var(--primary);">Pro Tip:</strong> Use morning & night for best results
                                 </div>
                             </div>
                         </div>
                             </div>
                         </div>
+
+                    <!-- Orange Detail -->
+                    <div id="orange-detail" style="display: none;">
+                        <a href="#" onclick="hideProductDetail()" style="color: var(--primary); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                        <div class="product-gallery">
+                            <div>
+                                <div class="gallery-main">
+                                    <img id="orangeMainImage" src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img1.jpg" alt="SADOER Orange Elite Mousse Face Wash">
+                                </div>
+                                <div class="gallery-thumbs">
+                                    <div class="thumb active" onclick="changeOrangeImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img1.jpg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img1.jpg" alt="Image 1">
+                                    </div>
+                                    <div class="thumb" onclick="changeOrangeImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img2.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img2.jpeg" alt="Image 2">
+                                    </div>
+                                    <div class="thumb" onclick="changeOrangeImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img3.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img3.jpeg" alt="Image 3">
+                                    </div>
+                                    <div class="thumb" onclick="changeOrangeImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img4.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img4.jpeg" alt="Image 4">
+                                    </div>
+                                    <div class="thumb" onclick="changeOrangeImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img5.jpg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img5.jpg" alt="Image 5">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-details">
+                                <h1>SADOER Orange Elite Mousse Face Wash</h1>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span>(4.9/5 - 143 reviews)</span>
+                                </div>
+                                <div class="product-price">
+                                    <span class="current-price">₹249</span>
+                                    <span class="old-price">₹599</span>
+                                    <span class="discount-percent">58% OFF</span>
+                                </div>
+                                <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
+                                    Powered by orange extract and stabilized Vitamin C, this airy mousse dissolves dirt, oil, and sunscreen buildup while reviving glow. Amino-acid surfactants cleanse without stripping, and hydrating actives keep skin bouncy.
+                                </p>
+                                <a href="https://wa.me/c/917093560884" target="_blank" class="order-button">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Order Now via WhatsApp
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Orange Product Information Tabs -->
+                        <div class="product-tabs">
+                            <div class="tab-buttons">
+                                <button class="tab-button active" onclick="showOrangeTab('orange-benefits')">Benefits</button>
+                                <button class="tab-button" onclick="showOrangeTab('orange-why-love')">Why You'll Love It</button>
+                                <button class="tab-button" onclick="showOrangeTab('orange-ingredients')">Ingredients</button>
+                                <button class="tab-button" onclick="showOrangeTab('orange-usage')">How to Use</button>
+                            </div>
+
+                            <div id="orange-benefits" class="tab-content active">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">🍊 Key Benefits</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Brightens dull skin with Vitamin C-rich orange extract
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Dense mousse lifts oil, sweat, and pollution effectively
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Gentle amino-acid surfactants keep barrier comfortable
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Helps refine appearance of pores for smoother feel
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Hydrates while cleansing, leaving skin soft—not tight
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Built-in brush head for deeper daily cleanse
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div id="orange-why-love" class="tab-content">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">🧡 Why You'll Love It</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Leaves skin fresh, bright, and comfortable after every wash
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Refreshing citrus aroma for a morning wake-up
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Lightweight foam rinses clean with zero residue
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Travel-friendly pump and brush for on-the-go cleansing
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div id="orange-ingredients" class="tab-content">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">Radiance-Boosting Ingredients</h3>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Orange Extract</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Natural Vitamin C and antioxidants to revive glow and even tone</p>
+                                    </div>
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Stabilized Vitamin C</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Supports brightness and helps defend against environmental stress</p>
+                                    </div>
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Amino Acid Surfactants</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Ultra-gentle cleansing that respects the moisture barrier</p>
+                                    </div>
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Hyaluronic + Glycerin</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Keeps skin hydrated and bouncy post-cleanse</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="orange-usage" class="tab-content">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">🧴 How to Use</h3>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                        <p>Start with a damp face</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                        <p>Press pump 2-3 times to dispense mousse</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                        <p>Massage over face using the soft brush in circular motions</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                        <p>Rinse thoroughly and pat dry</p>
+                                    </div>
+                                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(183,110,121,0.06); border-left: 3px solid var(--card-border); border-radius: 5px;">
+                                        <strong style="color: var(--primary);">Pro Tip:</strong> Use morning & night; follow with moisturizer and SPF in the day
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Collagen Mask Detail -->
+                    <div id="collagen-detail" style="display: none;">
+                        <a href="#" onclick="hideProductDetail()" style="color: var(--primary); text-decoration: none; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                        <div class="product-gallery">
+                            <div>
+                                <div class="gallery-main">
+                                    <img id="collagenMainImage" src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg" alt="BIO-COLLAGEN Real Deep Mask">
+                                </div>
+                                <div class="gallery-thumbs">
+                                    <div class="thumb active" onclick="changeCollagenImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg" alt="Image 1">
+                                    </div>
+                                    <div class="thumb" onclick="changeCollagenImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/2.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/2.jpeg" alt="Image 2">
+                                    </div>
+                                    <div class="thumb" onclick="changeCollagenImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/3.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/3.jpeg" alt="Image 3">
+                                    </div>
+                                    <div class="thumb" onclick="changeCollagenImage('https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/4.jpeg')">
+                                        <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/4.jpeg" alt="Image 4">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-details">
+                                <h1>BIO-COLLAGEN Real Deep Mask</h1>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span>(4.9/5 - 112 reviews)</span>
+                                </div>
+                                <div class="product-price" style="flex-direction: column; align-items: flex-start; gap: 0.4rem;">
+                                    <div style="display: flex; align-items: baseline; gap: 0.6rem;">
+                                        <span id="collagenPrice" class="current-price">₹249</span>
+                                        <span id="collagenMrp" class="old-price">₹499</span>
+                                    </div>
+                                    <span id="collagenPackLabel" class="discount-percent">Pack of 2</span>
+                                    <div id="collagen-pack-options" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.35rem;">
+                                        <button data-pack="2" class="tab-button active" style="padding: 0.35rem 0.8rem; font-size: 0.95rem;" onclick="selectCollagenPack('2')">Pack of 2 · ₹249</button>
+                                        <button data-pack="3" class="tab-button" style="padding: 0.35rem 0.8rem; font-size: 0.95rem;" onclick="selectCollagenPack('3')">Pack of 3 · ₹369</button>
+                                        <button data-pack="4" class="tab-button" style="padding: 0.35rem 0.8rem; font-size: 0.95rem;" onclick="selectCollagenPack('4')">Pack of 4 · ₹449</button>
+                                    </div>
+                                </div>
+                                <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
+                                    Upgrade your skincare routine with BIO-COLLAGEN Real Deep Mask, an intensive sheet mask designed to deeply hydrate, firm, and revitalize your skin. Powered with low-molecular collagen, hyaluronic acid, and probiotic ferment filtrate, this mask delivers deep nourishment, improves elasticity, and leaves your skin plump, smooth, and glowing.
+                                </p>
+                                <a href="https://wa.me/c/917093560884" target="_blank" class="order-button">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Order Now via WhatsApp
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Collagen Product Information Tabs -->
+                        <div class="product-tabs">
+                            <div class="tab-buttons">
+                                <button class="tab-button active" onclick="showCollagenTab('collagen-benefits')">Benefits</button>
+                                <button class="tab-button" onclick="showCollagenTab('collagen-why-love')">Why You'll Love It</button>
+                                <button class="tab-button" onclick="showCollagenTab('collagen-ingredients')">Ingredients</button>
+                                <button class="tab-button" onclick="showCollagenTab('collagen-usage')">How to Use</button>
+                            </div>
+
+                            <div id="collagen-benefits" class="tab-content active">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">✨ Key Benefits</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Deep Hydration – Locks in moisture for long-lasting softness
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Firming & Elasticity Boost – Helps improve skin firmness and bounce
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Pore Minimizing – Refines pores for a smoother appearance
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Low-Molecular Collagen – Absorbs deeply for effective skin repair
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Hyaluronic Acid Infused – Intensely moisturizes dry and dull skin
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Probiotic Ferment Care – Supports healthy, balanced skin
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        Sheet Mask Comfort – Soft, skin-hugging fit for maximum absorption
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                                        For All Skin Types – Suitable for men & women
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div id="collagen-why-love" class="tab-content">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">💖 Why You'll Love It</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Instantly hydrates and refreshes tired skin
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Makes skin look plump, smooth, and radiant
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Helps reduce the appearance of fine lines
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Spa-like treatment at home
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Perfect for weekly skin recovery or before special occasions
+                                    </li>
+                                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-heart" style="color: var(--rose);"></i>
+                                        Convenient single-use mask with professional results
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div id="collagen-ingredients" class="tab-content">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">Nourishing Actives</h3>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Low-Molecular Collagen</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Penetrates deeply to improve elasticity and firmness</p>
+                                    </div>
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Hyaluronic Acid</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Floods skin with moisture for a plump look</p>
+                                    </div>
+                                    <div style="background: var(--card); padding: 1rem; border-radius: 10px;">
+                                        <strong style="color: var(--primary);">Probiotic Ferment Filtrate</strong>
+                                        <p style="margin-top: 0.5rem; opacity: 0.9;">Supports a healthy skin barrier and balanced microbiome</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="collagen-usage" class="tab-content">
+                                <h3 style="color: var(--primary); margin-bottom: 1rem;">🧴 How to Use</h3>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                                        <p>Cleanse your face and pat dry</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                                        <p>Open the pouch and apply the mask evenly on your face</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                                        <p>Leave on for 3–4 hours for best results</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                                        <p>Remove the mask and gently massage remaining essence into skin</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="background: var(--primary); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</div>
+                                        <p>Do not rinse; follow with moisturizer if needed</p>
+                                    </div>
+                                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(183,110,121,0.06); border-left: 3px solid var(--card-border); border-radius: 5px;">
+                                        <strong style="color: var(--primary);">Pro Tip:</strong> Use 2–3 times a week for best results
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+    
 
     <!-- Footer -->
     <footer class="footer">
@@ -1231,6 +1684,7 @@
             </p>
         </div>
     </footer>
+    
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/c/917093560884" target="_blank" class="whatsapp-float">
@@ -1252,19 +1706,32 @@
         function showFeaturedProduct(product) {
             const featAvocado = document.getElementById('featured-avocado');
             const featRose = document.getElementById('featured-rose');
+            const featOrange = document.getElementById('featured-orange');
             const btnAvocado = document.getElementById('feat-btn-avocado');
             const btnRose = document.getElementById('feat-btn-rose');
+            const btnOrange = document.getElementById('feat-btn-orange');
             
             if (product === 'avocado') {
                 featAvocado.style.display = 'block';
                 featRose.style.display = 'none';
+                featOrange.style.display = 'none';
                 btnAvocado.classList.add('active');
                 btnRose.classList.remove('active');
-            } else {
+                if (btnOrange) btnOrange.classList.remove('active');
+            } else if (product === 'rose') {
                 featAvocado.style.display = 'none';
                 featRose.style.display = 'block';
+                featOrange.style.display = 'none';
                 btnAvocado.classList.remove('active');
                 btnRose.classList.add('active');
+                if (btnOrange) btnOrange.classList.remove('active');
+            } else {
+                featAvocado.style.display = 'none';
+                featRose.style.display = 'none';
+                featOrange.style.display = 'block';
+                btnAvocado.classList.remove('active');
+                btnRose.classList.remove('active');
+                if (btnOrange) btnOrange.classList.add('active');
             }
         }
 
@@ -1272,6 +1739,7 @@
         function showCategory(category) {
             const featAvocado = document.getElementById('featured-avocado');
             const featRose = document.getElementById('featured-rose');
+            const featOrange = document.getElementById('featured-orange');
             const featMasks = document.getElementById('featured-masks');
             const btnW = document.getElementById('cat-facewashes');
             const btnM = document.getElementById('cat-facemasks');
@@ -1279,12 +1747,14 @@
             if (category === 'facewashes') {
                 featAvocado.style.display = 'block';
                 featRose.style.display = 'block';
+                featOrange.style.display = 'block';
                 featMasks.style.display = 'none';
                 btnW.classList.add('active');
                 btnM.classList.remove('active');
             } else if (category === 'facemasks') {
                 featAvocado.style.display = 'none';
                 featRose.style.display = 'none';
+                featOrange.style.display = 'none';
                 featMasks.style.display = 'block';
                 btnW.classList.remove('active');
                 btnM.classList.add('active');
@@ -1297,6 +1767,8 @@
             const detailView = document.getElementById('product-detail-view');
             const avocadoDetail = document.getElementById('avocado-detail');
             const roseDetail = document.getElementById('rose-detail');
+            const orangeDetail = document.getElementById('orange-detail');
+            const collagenDetail = document.getElementById('collagen-detail');
             
             gridView.style.display = 'none';
             detailView.style.display = 'block';
@@ -1304,9 +1776,23 @@
             if (product === 'avocado') {
                 avocadoDetail.style.display = 'block';
                 roseDetail.style.display = 'none';
-            } else {
+                orangeDetail.style.display = 'none';
+                collagenDetail.style.display = 'none';
+            } else if (product === 'rose') {
                 avocadoDetail.style.display = 'none';
                 roseDetail.style.display = 'block';
+                orangeDetail.style.display = 'none';
+                collagenDetail.style.display = 'none';
+            } else if (product === 'collagen') {
+                avocadoDetail.style.display = 'none';
+                roseDetail.style.display = 'none';
+                orangeDetail.style.display = 'none';
+                collagenDetail.style.display = 'block';
+            } else {
+                avocadoDetail.style.display = 'none';
+                roseDetail.style.display = 'none';
+                orangeDetail.style.display = 'block';
+                collagenDetail.style.display = 'none';
             }
             
             window.scrollTo(0, 0);
@@ -1339,6 +1825,24 @@
             
             // Update active thumbnail
             const thumbs = document.querySelectorAll('#rose-detail .thumb');
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+            event.target.closest('.thumb').classList.add('active');
+        }
+
+        // Orange product image gallery
+        function changeOrangeImage(src) {
+            document.getElementById('orangeMainImage').src = src;
+            
+            // Update active thumbnail
+            const thumbs = document.querySelectorAll('#orange-detail .thumb');
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+            event.target.closest('.thumb').classList.add('active');
+        }
+
+        // Collagen mask image gallery
+        function changeCollagenImage(src) {
+            document.getElementById('collagenMainImage').src = src;
+            const thumbs = document.querySelectorAll('#collagen-detail .thumb');
             thumbs.forEach(thumb => thumb.classList.remove('active'));
             event.target.closest('.thumb').classList.add('active');
         }
@@ -1377,15 +1881,55 @@
             event.target.classList.add('active');
         }
 
+        // Orange product tabs
+        function showOrangeTab(tabId) {
+            const contents = document.querySelectorAll('#orange-detail .tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('#orange-detail .tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Collagen mask product tabs
+        function showCollagenTab(tabId) {
+            const contents = document.querySelectorAll('#collagen-detail .tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('#collagen-detail .tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Collagen pack selector
+        function selectCollagenPack(pack) {
+            const priceMap = { '2': '₹249', '3': '₹369', '4': '₹449' };
+            const mrpMap = { '2': '₹499', '3': '₹799', '4': '₹999' };
+            const labelMap = { '2': 'Pack of 2', '3': 'Pack of 3', '4': 'Pack of 4' };
+            document.getElementById('collagenPrice').textContent = priceMap[pack] || priceMap['2'];
+            document.getElementById('collagenMrp').textContent = mrpMap[pack] || mrpMap['2'];
+            document.getElementById('collagenPackLabel').textContent = labelMap[pack] || labelMap['2'];
+            document.querySelectorAll('#collagen-pack-options button').forEach(btn => btn.classList.remove('active'));
+            const btn = document.querySelector(`#collagen-pack-options button[data-pack="${pack}"]`);
+            if (btn) btn.classList.add('active');
+        }
+
         // Smooth scrolling for navigation and interactive enhancements
         document.addEventListener('DOMContentLoaded', function() {
-            // Add scroll effect to navbar
+            // Add scroll effect to navbar (keep english-pink; add subtle shadow on scroll)
             window.addEventListener('scroll', function() {
                 const navbar = document.querySelector('.navbar');
+                if (!navbar) return;
                 if (window.scrollY > 50) {
-                    navbar.style.background = 'rgba(26, 26, 46, 0.98)';
+                    navbar.style.background = 'var(--navbar-color)';
+                    navbar.style.boxShadow = '0 6px 18px rgba(12,12,12,0.06)';
                 } else {
-                    navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+                    navbar.style.background = 'var(--navbar-color)';
+                    navbar.style.boxShadow = 'none';
                 }
             });
 
@@ -1447,6 +1991,9 @@
                     heroContent.style.transform = '';
                 });
             }
+
+            // Default collagen pack selection
+            selectCollagenPack('2');
         });
     </script>
 </body>
