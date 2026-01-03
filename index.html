@@ -668,6 +668,76 @@
             color: #ffffff;
         }
 
+        /* Pack Selection Circular Buttons */
+        .pack-circle-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(183, 110, 121, 0.2);
+        }
+
+        .pack-circle-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(183, 110, 121, 0.3);
+            border-width: 4px;
+        }
+
+        .pack-circle-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(183, 110, 121, 0.4);
+            transform: scale(1.1);
+        }
+
+        .pack-circle-btn .pack-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .pack-circle-btn.active .pack-number {
+            color: #ffffff;
+        }
+
+        .pack-circle-btn .pack-price {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .pack-circle-btn.active .pack-price {
+            color: #ffffff;
+        }
+
+        /* Pack Badge Styling */
+        .pack-badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #C9869B 100%);
+            color: #ffffff;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(183, 110, 121, 0.25);
+            transition: transform 0.2s ease;
+        }
+
+        .pack-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(183, 110, 121, 0.35);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .mobile-menu-toggle {
@@ -809,7 +879,7 @@
                             <h3>SADOER Avocado Mousse Face Wash</h3>
                             <div class="price">
                                 <span class="sale-price">₹249</span>
-                                <span class="original-price">₹599</span>
+                                <span class="original-price">MRP ₹599</span>
                             </div>
                             <p class="product-description">
                                 Experience the gentle power of our premium mousse face wash. Formulated with natural ingredients to cleanse, nourish, and reveal your skin's natural glow.
@@ -836,7 +906,7 @@
                             <h3>SADOER ROSE Mousse Face Wash</h3>
                             <div class="price">
                                 <span class="sale-price">₹249</span>
-                                <span class="original-price">₹599</span>
+                                <span class="original-price">MRP ₹599</span>
                             </div>
                             <p class="product-description">
                                 Upgrade your daily skincare routine with SADOER Rose Elite Mousse Face Wash, a luxurious amino-acid based cleanser that gently removes dirt, oil, and impurities while keeping your skin soft, fresh, and hydrated.
@@ -863,7 +933,7 @@
                             <h3>SADOER Orange Elite Mousse Face Wash</h3>
                             <div class="price">
                                 <span class="sale-price">₹249</span>
-                                <span class="original-price">₹599</span>
+                                <span class="original-price">MRP ₹599</span>
                             </div>
                             <p class="product-description">
                                 Brighten dull, tired skin with this Vitamin C-rich mousse cleanser. The dense foam lifts away oil, pollution, and sunscreen while orange extract and amino acids leave skin soft, radiant, and hydrated.
@@ -888,9 +958,16 @@
                         </div>
                         <div class="product-info">
                             <h3>BIO-COLLAGEN Real Deep Mask</h3>
-                            <div class="price" style="display: flex; flex-direction: column; gap: 0.35rem;">
-                                <span class="sale-price">₹249</span>
-                                <div style="font-size: 0.95rem; color: var(--text); opacity: 0.9;">Pack of 2 @ ₹249 · Pack of 3 @ ₹369 · Pack of 4 @ ₹449</div>
+                            <div class="price" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                                    <span class="sale-price">₹249</span>
+                                    <span class="original-price" style="font-size: 0.9rem;">MRP ₹499</span>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <span class="pack-badge">2 × ₹249</span>
+                                    <span class="pack-badge">3 × ₹369</span>
+                                    <span class="pack-badge">4 × ₹449</span>
+                                </div>
                             </div>
                             <p class="product-description">
                                 Intensive bio-collagen sheet mask that drenches skin with hydration, firms, and leaves a plump, glassy finish. Powered by low-molecular collagen, hyaluronic acid, and probiotic ferment.
@@ -960,7 +1037,7 @@
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <span style="color: var(--primary); font-size: 1.5rem; font-weight: 600;">₹249</span>
-                                <span style="color: #999; text-decoration: line-through;">₹599</span>
+                                <span style="color: #999; text-decoration: line-through;">MRP ₹599</span>
                                 <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
                             </div>
                         </div>
@@ -972,7 +1049,7 @@
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <span style="color: var(--primary); font-size: 1.5rem; font-weight: 600;">₹249</span>
-                                <span style="color: #999; text-decoration: line-through;">₹599</span>
+                                <span style="color: #999; text-decoration: line-through;">MRP ₹599</span>
                                 <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
                             </div>
                         </div>
@@ -984,7 +1061,7 @@
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Wash</p>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <span style="color: var(--primary); font-size: 1.5rem; font-weight: 600;">₹249</span>
-                                <span style="color: #999; text-decoration: line-through;">₹599</span>
+                                <span style="color: #999; text-decoration: line-through;">MRP ₹599</span>
                                 <span style="background: #ff4757; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">58% OFF</span>
                             </div>
                         </div>
@@ -995,7 +1072,10 @@
                             <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">BIO-COLLAGEN Real Deep Mask</h3>
                             <p style="color: var(--rose); margin-bottom: 1rem;">Face Mask</p>
                             <div style="display: flex; flex-direction: column; gap: 0.35rem;">
-                                <span style="color: var(--primary); font-size: 1.2rem; font-weight: 700;">Packs: 2 @ ₹249</span>
+                                <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                                    <span style="color: var(--primary); font-size: 1.2rem; font-weight: 700;">Packs: 2 @ ₹249</span>
+                                    <span style="color: #999; text-decoration: line-through; font-size: 0.9rem;">MRP ₹499</span>
+                                </div>
                                 <span style="color: var(--text); opacity: 0.85;">3 @ ₹369 · 4 @ ₹449</span>
                                 <span style="background: #ffd166; color: #000; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem; align-self: flex-start;">New</span>
                             </div>
@@ -1048,7 +1128,7 @@
                         </div>
                         <div class="product-price">
                             <span class="current-price">₹249</span>
-                            <span class="old-price">₹599</span>
+                            <span class="old-price">MRP ₹599</span>
                             <span class="discount-percent">58% OFF</span>
                         </div>
                         <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
@@ -1218,7 +1298,7 @@
                             </div>
                             <div class="product-price">
                                 <span class="current-price">₹249</span>
-                                <span class="old-price">₹599</span>
+                                <span class="old-price">MRP ₹599</span>
                                 <span class="discount-percent">58% OFF</span>
                             </div>
                             <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
@@ -1385,7 +1465,7 @@
                                 </div>
                                 <div class="product-price">
                                     <span class="current-price">₹249</span>
-                                    <span class="old-price">₹599</span>
+                                    <span class="old-price">MRP ₹599</span>
                                     <span class="discount-percent">58% OFF</span>
                                 </div>
                                 <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
@@ -1546,13 +1626,22 @@
                                 <div class="product-price" style="flex-direction: column; align-items: flex-start; gap: 0.4rem;">
                                     <div style="display: flex; align-items: baseline; gap: 0.6rem;">
                                         <span id="collagenPrice" class="current-price">₹249</span>
-                                        <span id="collagenMrp" class="old-price">₹499</span>
+                                        <span id="collagenMrp" class="old-price">MRP ₹499</span>
                                     </div>
                                     <span id="collagenPackLabel" class="discount-percent">Pack of 2</span>
-                                    <div id="collagen-pack-options" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.35rem;">
-                                        <button data-pack="2" class="tab-button active" style="padding: 0.35rem 0.8rem; font-size: 0.95rem;" onclick="selectCollagenPack('2')">Pack of 2 · ₹249</button>
-                                        <button data-pack="3" class="tab-button" style="padding: 0.35rem 0.8rem; font-size: 0.95rem;" onclick="selectCollagenPack('3')">Pack of 3 · ₹369</button>
-                                        <button data-pack="4" class="tab-button" style="padding: 0.35rem 0.8rem; font-size: 0.95rem;" onclick="selectCollagenPack('4')">Pack of 4 · ₹449</button>
+                                    <div id="collagen-pack-options" style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem;">
+                                        <button data-pack="2" class="pack-circle-btn active" onclick="selectCollagenPack('2')">
+                                            <span class="pack-number">2</span>
+                                            <span class="pack-price">₹249</span>
+                                        </button>
+                                        <button data-pack="3" class="pack-circle-btn" onclick="selectCollagenPack('3')">
+                                            <span class="pack-number">3</span>
+                                            <span class="pack-price">₹369</span>
+                                        </button>
+                                        <button data-pack="4" class="pack-circle-btn" onclick="selectCollagenPack('4')">
+                                            <span class="pack-number">4</span>
+                                            <span class="pack-price">₹449</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
