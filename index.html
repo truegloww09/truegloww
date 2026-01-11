@@ -1001,7 +1001,7 @@
                 
                 <!-- Avocado Featured Product -->
                 <div id="featured-avocado" class="featured-content">
-                    <div class="product-showcase">
+                    <div class="product-showcase" onclick="showPage('product'); showProductDetail('avocado')" style="cursor: pointer;">
                         <div class="product-image">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/avocado/img1.jpg" alt="SADOER Avocado Mousse Face Wash">
                             <div class="discount-badge">58% OFF</div>
@@ -1028,7 +1028,7 @@
 
                 <!-- Rose Featured Product -->
                 <div id="featured-rose" class="featured-content">
-                    <div class="product-showcase">
+                    <div class="product-showcase" onclick="showPage('product'); showProductDetail('rose')" style="cursor: pointer;">
                         <div class="product-image">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_web/Rose/img1.jpg" alt="SADOER ROSE Mousse Face Wash">
                             <div class="discount-badge">58% OFF</div>
@@ -1055,7 +1055,7 @@
 
                 <!-- Orange Featured Product -->
                 <div id="featured-orange" class="featured-content">
-                    <div class="product-showcase">
+                    <div class="product-showcase" onclick="showPage('product'); showProductDetail('orange')" style="cursor: pointer;">
                         <div class="product-image">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/orange/img1.jpg" alt="SADOER Orange Elite Mousse Face Wash">
                             <div class="discount-badge">58% OFF</div>
@@ -1082,7 +1082,7 @@
                 
                 <!-- Face Masks Featured Product -->
                 <div id="featured-masks" class="featured-content" style="display: none;">
-                    <div class="product-showcase">
+                    <div class="product-showcase" onclick="showPage('product'); showProductDetail('collagen')" style="cursor: pointer;">
                         <div class="product-image">
                             <img src="https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg" alt="BIO-COLLAGEN Real Deep Mask">
                             <div class="discount-badge">New Arrival</div>
@@ -1994,6 +1994,7 @@
             ],
             collagen: [
                 'https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/1.jpeg',
+                'VIDEO', // Video placeholder at index 1
                 'https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/2.jpeg',
                 'https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/3.jpeg',
                 'https://raw.githubusercontent.com/truegloww09/trueglow_pics/Collagen-Face-Mask/4.jpeg'
@@ -2021,7 +2022,12 @@
             } else if (product === 'orange') {
                 changeOrangeImage(imageUrl);
             } else if (product === 'collagen') {
-                changeCollagenImage(imageUrl);
+                // Check if it's a video slide
+                if (imageUrl === 'VIDEO') {
+                    showCollagenVideo();
+                } else {
+                    changeCollagenImage(imageUrl);
+                }
             }
         }
 
@@ -2233,7 +2239,14 @@
             
             const thumbs = document.querySelectorAll('#collagen-detail .thumb');
             thumbs.forEach(thumb => thumb.classList.remove('active'));
-            event.target.closest('.thumb').classList.add('active');
+            
+            // Update active thumbnail if called from click
+            if (event && event.target) {
+                const clickedThumb = event.target.closest('.thumb');
+                if (clickedThumb) {
+                    clickedThumb.classList.add('active');
+                }
+            }
         }
 
         // Show collagen video
@@ -2247,7 +2260,12 @@
             
             const thumbs = document.querySelectorAll('#collagen-detail .thumb');
             thumbs.forEach(thumb => thumb.classList.remove('active'));
-            event.target.closest('.thumb').classList.add('active');
+            
+            // Update active thumbnail for video slide
+            const videoThumb = document.querySelector('#collagen-detail .video-thumb');
+            if (videoThumb) {
+                videoThumb.classList.add('active');
+            }
         }
 
         // Product tabs
